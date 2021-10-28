@@ -9,7 +9,10 @@ class Meetup
     days_of_week.index(weekday)
   end
 
+  private
+
   attr_reader :year, :number
+
   def initialize(number, year)
     @year = year
     @number = number
@@ -20,6 +23,12 @@ class Meetup
     @twenty_second = Date.new(year, number, 22)
     @last = Date.new(year, number, -1)
   end
+
+  def days_til(weekday, day)
+    (self.class.weekday_number(weekday) - day.wday) % 7
+  end
+
+  public
 
   def day(weekday, schedule)
     case schedule
@@ -38,9 +47,4 @@ class Meetup
     end
   end
 
-  private
-
-  def days_til(weekday, day)
-    (self.class.weekday_number(weekday) - day.wday) % 7
-  end
 end
